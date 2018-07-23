@@ -1,0 +1,5 @@
+"0","data2$trimestre <- quarter(date)
+"
+"2","Error in as.POSIXlt.default(x, tz = tz(x)) : 
+  do not know how to convert 'x' to class “POSIXlt”
+"

@@ -1,0 +1,106 @@
+---
+title: "prob3cp2"
+author: "Matheus Freitas"
+date: "4 de julho de 2018"
+output: html_document
+---
+
+Nesta analise, usaremos dados das unidades acadêmicas da UFCG para analisar os seus tipos de funcinários.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(plotly)
+library(IDPmisc)
+library(broom)
+ufcg_uas = read_csv(here("data/ufcg-201704-sumario-UAs-wide.csv"), 
+                            col_types = cols(
+                                UORG_LOTACAO = col_character(),
+                                Outro = col_double(),
+                                `Professor 20h` = col_double(),
+                                `Professor 40h ou DE` = col_double(),
+                                idade_25perc = col_double(),
+                                idade_mediana = col_double(),
+                                idade_75perc = col_double()
+                            )
+)
+
+ufcg_scaled = ufcg_uas %>% 
+  mutate_at(vars(Outro,
+                 `Professor 20h`,
+                 `Professor 40h ou DE`,
+                 idade_25perc,
+                 idade_mediana,
+                 idade_75perc),
+            funs(log))
+
+```
+
+#Qual seria um bom valor para K? 
+Para agruparmos os dados para melhor analisa-los é importante decidir a quantidade de grupos em que dividiremos os dados, ou seja, K. Para fazer essa decisão de forma automática iremos usar o algoritmo "Between/totss".
+```{r}
+set.seed(30)
+
+
+explorando_k = tibble(k = 1:15) %>%
+  group_by(k) %>% 
+  do(kmeans(NaRV.omit(select(ufcg_scaled, -UORG_LOTACAO)),
+           centers = .$k,
+           nstart = 20) %>% 
+      glance())
+
+explorando_k %>% 
+  ggplot(aes(x = k, y = betweenss / totss)) +
+  geom_line() +
+  geom_point()
+
+```
+Observando este gráfico, fica perceptível que a partir de k igual 4, já não temos uma diferença muito grande. O que queremos é justamente o ponto no anterior ao ponto do qual o gráfico fica mais "linear". Dessa maneira, o nosso K escolhido será 4.
+
+
+#K-means
+Aqui aplicaremos o algoritmo k-means para agrupar os dados em 4 clusters distintos.
+
+```{r}
+set.seed(30)
+
+n_clusters = 4
+
+km = ufcg_uas %>% 
+  select(-UORG_LOTACAO) %>% 
+  kmeans(centers = n_clusters, nstart = 20)
+
+uas_agrupadas = km %>% 
+  augment(ufcg_scaled) %>% 
+  gather(key = "variável",
+         value = "valor",
+         -UORG_LOTACAO,
+         -.cluster)
+
+
+p = ggplot(uas_agrupadas, aes(x=`variável`, 
+             y=valor,
+             text = paste("Unidade Acadêmica:",UORG_LOTACAO),
+             group = UORG_LOTACAO,
+             colour = .cluster)) +
+  labs(title = "Clusters")+ 
+  theme(legend.position= "none") +
+  geom_point() + 
+  coord_flip() + 
+  facet_wrap(~ .cluster)
+
+
+ggplotly(p, tooltip = "text")
+```
+
+Os grupos podem ser classificados da seguinte maneira:
+
+  **Grupo 1:** Neste grupo fica claro a presença de unidades acadêmicas com a menor quantidade de professores, em qualquer tipo de regime, e também funcinários.
+  
+  **Grupo 2:** Grupo que mais possui unidades acadêmicas com muitos professores em regime de 40h ou dedicação exclusiva.
+  
+  **Grupo 3:** Possui apenas duas unidades acadêmicas, medicina e ciências da vida. Ambas são as únicas que possuem professores de 20h muito próximo a 4.
+  
+  **Grupo 4:** Este grupo possui apenas uma única unidade acadêmica com professores em regime de 20h e vários professores em regime de 40h ou dedicação exclusiva.
+    

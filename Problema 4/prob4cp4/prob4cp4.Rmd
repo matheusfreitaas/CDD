@@ -1,0 +1,12 @@
+---
+title: "prob4cp4"
+author: "Matheus Freitas"
+date: "23 de julho de 2018"
+output: html_document
+---
+O objetivo desse exercício é replicar o checkpoint anterior utilizando intervalos de confiança para chegar aos valores, ao invés de bootstrapping. Logo, as únicas coisas que serão explicadas aqui serão os resultados obtidos. Para entender melhor os dados, veja os exercícios anteriores deste problema.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+

@@ -1,0 +1,8 @@
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0","library(tidyverse)"
+"0","library(here)"
+"0","library(plotly)"
+"0","#todos os jogos dos dados da FIFA"
+"0","games = read_csv(here(""data/international-football.csv""))"
+"2","Error: 'C:/Users/Matheus Freitas/Desktop/tamanhos-da-ufcg-master/data/international-football.csv' does not exist.
+"
