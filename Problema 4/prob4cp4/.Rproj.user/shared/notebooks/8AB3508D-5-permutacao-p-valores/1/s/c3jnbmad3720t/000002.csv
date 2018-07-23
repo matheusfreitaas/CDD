@@ -1,0 +1,9 @@
+"0","```r
+chisq.test(titanic$Survived, titanic$Pclass, simulate.p.value = TRUE)$resid
+
+```"
+"1","                titanic$Pclass
+titanic$Survived         1         2         3
+               0 -4.601993 -1.537771  3.993703
+               1  5.830678  1.948340 -5.059981
+"

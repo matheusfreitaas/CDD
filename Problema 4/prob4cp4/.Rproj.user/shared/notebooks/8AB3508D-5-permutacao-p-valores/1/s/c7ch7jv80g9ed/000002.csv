@@ -1,0 +1,6 @@
+"0","```r
+medias4x5 = sw4x5 %>% 
+  group_by(title) %>% 
+  summarise(media = mean(rating))
+medias4x5
+```"

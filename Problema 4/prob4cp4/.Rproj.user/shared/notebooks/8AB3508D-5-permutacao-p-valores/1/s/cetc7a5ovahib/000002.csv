@@ -1,0 +1,10 @@
+"0","```r
+chisq.test(titanic2$sex, titanic2$survival, simulate.p.value = TRUE)
+
+```"
+"1","
+	Pearson's Chi-squared test with simulated p-value (based on 2000 replicates)
+
+data:  titanic2$sex and titanic2$survival
+X-squared = 460.87, df = NA, p-value = 0.0004998
+"

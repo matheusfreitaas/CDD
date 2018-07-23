@@ -1,0 +1,14 @@
+"0","```r
+wilcox_test(rating ~ as.factor(title), 
+            data = sw5x6, 
+            distribution = \"exact\") # tirando este parÃ¢metro, usamos fÃ³rmula fechada em lugar de permutaÃ§Ã£o
+
+```"
+"1","
+	Exact Wilcoxon-Mann-Whitney Test
+
+data:  rating by
+	 as.factor(title) (Star Wars: Episode V - The Empire Strikes Back (1980), Star Wars: Episode VI - Return of the Jedi (1983))
+Z = 2.5638, p-value = 0.01027
+alternative hypothesis: true mu is not equal to 0
+"

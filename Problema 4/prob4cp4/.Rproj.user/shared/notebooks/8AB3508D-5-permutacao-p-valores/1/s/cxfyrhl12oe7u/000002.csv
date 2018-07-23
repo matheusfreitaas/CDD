@@ -1,0 +1,6 @@
+"0","```r
+sum(abs(diffs) >= abs(diff.media.observada.1x4)) / length(diffs)
+
+```"
+"1","[1] 0.0166
+"

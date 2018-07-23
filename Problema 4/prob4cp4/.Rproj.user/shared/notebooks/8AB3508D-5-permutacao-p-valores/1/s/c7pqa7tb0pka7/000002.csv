@@ -1,0 +1,14 @@
+"0","```r
+median_test(rating ~ as.factor(title), 
+            data = sw5x6, 
+            distribution = \"exact\")
+
+```"
+"1","
+	Exact Two-Sample Brown-Mood Median Test
+
+data:  rating by
+	 as.factor(title) (Star Wars: Episode V - The Empire Strikes Back (1980), Star Wars: Episode VI - Return of the Jedi (1983))
+Z = 1.8238, p-value = 0.0725
+alternative hypothesis: true mu is not equal to 0
+"

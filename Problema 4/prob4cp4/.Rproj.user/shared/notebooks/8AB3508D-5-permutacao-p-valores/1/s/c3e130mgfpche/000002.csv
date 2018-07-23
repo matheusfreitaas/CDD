@@ -1,0 +1,14 @@
+"0","```r
+library(resample)
+
+permutationTest2(data = sw5x6, statistic = mean(rating), treatment = title)
+
+permutationTest2(data = sw5x6 %>% filter(title == nomes_episodios[6]), 
+                 statistic = mean(rating), 
+                 data2 = sw5x6 %>% filter(title == nomes_episodios[5]))
+
+permutationTest2(sw4x5, mean(rating), treatment = title)
+
+permutationTest2(sw1x4, median(rating), treatment = title)
+permutationTest2(sw4x5, median(rating), treatment = title)
+```"
