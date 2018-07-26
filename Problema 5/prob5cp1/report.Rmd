@@ -1,0 +1,14 @@
+---
+title: "prob5cp1"
+author: "Matheus Freitas"
+date: "26 de julho de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+data = read_csv("data/speed-dating.csv")
+```

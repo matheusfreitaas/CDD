@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"prob5cp1\"\nauthor: \"Matheus Freitas\"\ndate: \"26 de julho de 2018\"\noutput: html_document\n---\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = TRUE)\n\nlibrary(tidyverse)\n\ndata = read_csv(\"data/speed-dating.csv\")\n```\n",
+    "created" : 1532606350719.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2347655267",
+    "id" : "36D623A3",
+    "lastKnownWriteTime" : 1532606786,
+    "last_content_update" : 1532606786373,
+    "path" : "~/CDD/Problema 5/prob5cp1/report.Rmd",
+    "project_path" : "report.Rmd",
+    "properties" : {
+        "last_setup_crc32" : "60399D9Fe162372e",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

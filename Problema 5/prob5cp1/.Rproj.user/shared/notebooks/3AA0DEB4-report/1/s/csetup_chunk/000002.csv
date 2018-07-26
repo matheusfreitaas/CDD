@@ -1,0 +1,27 @@
+"0","data = read_csv(""data/speed-dating.csv"")
+"
+"2","Parsed with column specification:
+cols(
+  .default = col_integer(),
+  int_corr = col_double(),
+  field = col_character(),
+  from = col_character(),
+  career = col_character(),
+  attr = col_double(),
+  sinc = col_double(),
+  intel = col_double(),
+  fun = col_double(),
+  amb = col_double(),
+  shar = col_double(),
+  like = col_double(),
+  prob = col_double(),
+  match_es = col_double(),
+  attr3_s = col_character(),
+  sinc3_s = col_character(),
+  intel3_s = col_character(),
+  fun3_s = col_character(),
+  amb3_s = col_character()
+)
+"
+"2","See spec(...) for full column specifications.
+"
