@@ -19,3 +19,7 @@
 "0","              m2 = d %>% filter(version_shuffled == group2) %>% pull(ct)"
 "0","              m1 - m2"
 "0","          })"
+"0","tibble(diferenca = permutacoes) %>% "
+"0","  ggplot(aes(x = diferenca)) + "
+"0","  geom_histogram(bins = 30) + "
+"0","  geom_vline(xintercept = diferenca_amostral, size = 2, color = ""orange"")"
