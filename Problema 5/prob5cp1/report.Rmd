@@ -9,33 +9,63 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
+library(broom)
+library(modelr)
+library(GGally)
 
 speed_dating = read_csv("data/speed-dating.csv")
 ```
 
 Nessa análise, utilizaremos dados que descrevem 5000 encontros relâmpagos *(speed dating)* de 4 minutos envolvendo 310 jovens americanos. Os participantes tinham vários encontros de 4 minutos por noite. Os dados e o seu significado foram retirados [deste](https://github.com/nazareno/ciencia-de-dados-1/tree/master/5-regressao/speed-dating) repositório. 
-
-
-##Os dados
-```{r}
-
-```
-
+</br>
 
 ##Qual a relação entre o like e o quão atraente a pessoa 1 achou a pessoa 2? 
+Para essa análise, iremos ocultar os casos em que a pessoa 1 optou por não responder as perguntas.
+</br>
+Em todos os modelos abaixo iremos utilizar como variável dependente o *like* e *attr* como variável independente, o valor que iremos observar será o da coluna **estimate** que mostra o quanto as variáveis independentes influenciam a variável dependente.
+</br>
 ```{r}
 ambos_sexos = speed_dating %>%
   select(like, attr, gender) %>%
   na.omit()
-```
 
+modelo_ambos_sexos = lm(like ~ attr,
+                        data = ambos_sexos)
+ambos_sexos %>%
+  select(attr, like) %>%
+  ggpairs()
+
+tidy(modelo_ambos_sexos)
+glance(modelo_ambos_sexos)
+```
+</br>
+Utilizando esse modelo de regressão linear simples, podemos observar que a correlação entre like e o quão atraente a pessoa 1 achou a pessoa dois é de 0.671, ou seja, essa variável influencia positivamente o like. No entanto, não chega a ser uma varável muito forte. Além disso, o R² é de 0.45, ou seja, esse modelo não é de fato bom para explicar esses valores.
+</br>
 
 ##Essa relação muda de acordo com o sexo? 
-Para essa análise, iremos ocultar os casos em que a pessoa 1 optou por não responder as perguntas.
 ```{r}
 feminino = ambos_sexos %>%
   filter(gender == 0)
 
+modelo_feminino = lm(like ~ attr,
+                     data = feminino)
+
+tidy(modelo_feminino)
+glance(modelo_feminino)
+
 masculino = ambos_sexos %>%
   filter(gender == 1)
+
+modelo_masculino = lm(like ~ attr,
+                      data = masculino)
+tidy(modelo_masculino)
+glance(modelo_masculino)
+
 ```
+</br>
+*Modelo feminino:
+Possui um **estimate** na linha de *attr* de 0.65, logo podemos afirmar que este possui influência positiva no modelo mas não muito forte, como podemos observar no **r.squared**, que está muito abaixo de 1, ou seja, nos diz que esse modelo não é muito representativo para explicar esses valores.
+</br>
+</br>
+*Modelo masculino:
+Possui um **estimate** na linha de *attr* de 0.61, ou seja, menor que o do modelo feminino, logo podemos confirmar que para os homens dessa enquete o quão eles acham a pessoa 2 do encontro atraente influencia menos que para as mulheres. No entanto, é importante analisar que o **r.squared** é de 0.42, sendo um modelo não muito representativo para esses valores, como já tinhamos observado. 
